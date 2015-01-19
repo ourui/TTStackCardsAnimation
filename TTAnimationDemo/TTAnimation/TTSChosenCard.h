@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTStackSingleCardView.h"
 
-@interface TTSChosenCard : UIView
+@interface TTSChosenCard : TTStackSingleCardView
 
 + (instancetype)newCard;
 

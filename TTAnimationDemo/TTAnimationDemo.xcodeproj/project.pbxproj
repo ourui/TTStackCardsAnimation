@@ -41,6 +41,7 @@
 		1A5755F01A67936A0038CF45 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TTAnimation/main.m; sourceTree = SOURCE_ROOT; };
 		1A5755F31A6793EF0038CF45 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = TTAnimation/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		1A5755F61A6794050038CF45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = TTAnimation/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
+		1A6008CD1A6CC7A600FAE73F /* TTStackSingleCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTStackSingleCardView.h; path = ../../TTStackCards/TTStackCards/TTStackSingleCardView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +103,7 @@
 				1A5755E31A6792FA0038CF45 /* TTSChosenViewController.h */,
 				1A5755E41A6792FA0038CF45 /* TTSChosenViewController.m */,
 				1A5755E51A6792FA0038CF45 /* TTStackCards.h */,
+				1A6008CD1A6CC7A600FAE73F /* TTStackSingleCardView.h */,
 				1A5754FA1A63A33A0038CF45 /* Supporting Files */,
 			);
 			name = TTAnimationDemo;

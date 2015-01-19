@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class TTStackSingleCardView;
+
 typedef NS_ENUM(NSUInteger, TTStackCardsDicretion) {
     TTStackCardsDicretionLeft = 1,
     TTStackCardsDicretionRight = 2,
@@ -16,7 +18,7 @@ typedef NS_ENUM(NSUInteger, TTStackCardsDicretion) {
 
 @protocol TTStackCardsDelegate <NSObject>
 
-- (UIView *)ttStackCardView;
+- (TTStackSingleCardView *)ttStackCardView;
 
 @optional
 - (void)ttStackCard:(UIView *)card didRemoveOnDirection:(TTStackCardsDicretion)direciton;
