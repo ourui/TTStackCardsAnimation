@@ -18,7 +18,7 @@
 @end
 
 
-CGFloat const TTDisappearDistance = 130;
+CGFloat const TTDisappearDistance = 130.0;
 
 @implementation TTStackSingleCardView
 

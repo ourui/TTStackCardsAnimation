@@ -120,6 +120,33 @@ extern CGFloat const TTDisappearDistance;
 
 - (void)cardMoveFromPositon:(CGPoint)from toPosition:(CGPoint)to {
     
+    TTStackSingleCardView *card = [self.cards objectAtIndex:0];
+
+    TTStackCardsDicretion direction = card.center.x > card.originPosition.x ?
+                                    TTStackCardsDicretionRight:TTStackCardsDicretionLeft;
+    
+    CGFloat distance = abs(card.originPosition.x - to.x);
+    CGFloat progress = distance / TTDisappearDistance;
+    if (progress > 1.0) {
+        progress = 1.0;
+    }
+    
+    for (int i=1; i<=2; i++) {
+        TTStackSingleCardView *card = self.cards[i];
+        CGRect frame = originFrames[i];
+        CGFloat scale = (1.0 + (recusiveScale - 1) * progress);
+        
+        frame = CGRectMake(frame.origin.x,
+                           frame.origin.y - recusiveSpace * progress,
+                           frame.size.width * scale,
+                           frame.size.height * scale);
+        card.frame = frame;
+        card.centerX = originPoints[i].x;
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(ttStackCardView:movingOnDirection:movingFactor:)]) {
+        [self.delegate ttStackCardView:card movingOnDirection:direction movingFactor:progress];
+    }
 }
 
 - (void)triggerRemoveActionWithTouchTime:(NSTimeInterval)touchTime{
@@ -142,12 +169,21 @@ extern CGFloat const TTDisappearDistance;
         disappearPosition = CGPointMake(self.superView.width+card.width/2, card.centerY);
     }
     
+    if ([self.delegate respondsToSelector:@selector(ttStackCardView:movingOnDirection:movingFactor:)]) {
+        [self.delegate ttStackCardView:card movingOnDirection:direction movingFactor:1.0];
+    }
+    
     [UIView animateWithDuration:touchTime animations:^{
         card.center = disappearPosition;
         
     } completion:^(BOOL finished) {
         [self removeTopCard];
         [card removeFromSuperview];
+        
+        if([self.delegate respondsToSelector:@selector(ttStackCardView:didRemovedOnDirection:)]) {
+            [self.delegate ttStackCardView:card didRemovedOnDirection:direction];
+        }
+        
         [self scaleUpCardsWithAnimationDuration:0.05];
     }];
 }
@@ -245,6 +281,15 @@ extern CGFloat const TTDisappearDistance;
     CAAnimation *animation = [self backOutAnimationOnDirection:direciton];
     animation.delegate = cardToRemove;
     [cardToRemove.layer addAnimation:animation forKey:@"disappear"];
+    
+    
+    if ([self.delegate respondsToSelector:@selector(ttStackCardView:movingOnDirection:movingFactor:)]) {
+        [self.delegate ttStackCardView:cardToRemove movingOnDirection:direciton movingFactor:1.0];
+    }
+    
+    if([self.delegate respondsToSelector:@selector(ttStackCardView:didRemovedOnDirection:)]) {
+        [self.delegate ttStackCardView:cardToRemove didRemovedOnDirection:direciton];
+    }
     
     [self scaleUpCardsWithAnimationDuration:0.45];
 }
