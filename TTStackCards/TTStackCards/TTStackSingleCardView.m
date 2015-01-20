@@ -8,16 +8,17 @@
 
 #import "TTStackSingleCardView.h"
 #import "SKBounceAnimation.h"
-#import "TTStackSingleCardViewProtocal.h"
+#import "TTStackCardsProtocal.h"
 
 @interface TTStackSingleCardView ()
 
 @property(nonatomic)CGPoint touchBeginPoint;
 @property(nonatomic)CGPoint lastTouchPoint;
+@property(nonatomic)NSTimeInterval beginTimeStamp;
 @end
 
 
-CGFloat const TTDisappearDistance = 150;
+CGFloat const TTDisappearDistance = 130;
 
 @implementation TTStackSingleCardView
 
@@ -30,6 +31,9 @@ CGFloat const TTDisappearDistance = 150;
     UITouch *touch = [touches anyObject];
     
     if (touch.tapCount == 1 && self.shouldHandleTouchEvent) {
+        
+        self.beginTimeStamp = touch.timestamp;
+        
         self.touchBeginPoint = [touch locationInView:self.superview];
         self.lastTouchPoint = self.touchBeginPoint;
     }
@@ -54,15 +58,17 @@ CGFloat const TTDisappearDistance = 150;
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
    
+    UITouch *touch = [touches anyObject];
+    
     if (self.shouldHandleTouchEvent) {
        
         CGFloat distance =  abs(self.originPosition.x - self.center.x);
         if (distance > TTDisappearDistance) {
-            [self.stackCards triggerRemoveAction];
+            [self.stackCards triggerRemoveActionWithTouchTime:(touch.timestamp - self.beginTimeStamp)];
         }
         else {
             [self bouncesToOriginal];
-            [self.stackCards scaleDownCardsWithAnimation];
+            [self.stackCards scaleDownCardsWithAnimationDuration:0.15];
         }
     }
 }

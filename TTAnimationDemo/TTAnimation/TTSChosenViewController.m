@@ -27,7 +27,7 @@
     self.title = @"TanTan";
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.stackCards = [TTStackCards cardsWithPresenedInView:self.view ttStackCardsDelegate:self];
+    self.stackCards = [TTStackCards cardsWithPresenedView:self.view ttStackCardsDelegate:self];
 
 }
 

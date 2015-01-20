@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class TTStackSingleCardView;
+
 typedef NS_ENUM(NSUInteger, TTStackCardsDicretion) {
     TTStackCardsDicretionLeft = 1,
     TTStackCardsDicretionRight = 2,
@@ -16,10 +18,16 @@ typedef NS_ENUM(NSUInteger, TTStackCardsDicretion) {
 
 @protocol TTStackCardsDelegate <NSObject>
 
-- (UIView *)ttStackCardView;
+- (TTStackSingleCardView *)ttStackCardView;
 
 @optional
-- (void)ttStackCard:(UIView *)card didRemoveOnDirection:(TTStackCardsDicretion)direciton;
+
+//视图拖动时 factor:(0.0-1.0) 1.0 表示移动到最大程度,释放即将移除
+- (void)ttStackCardView:(TTStackSingleCardView *)cardView movingOnDirection:(TTStackCardsDicretion)direction movingFactor:(CGFloat)factor;
+
+//视图已移除
+- (void)ttStackCardView:(TTStackSingleCardView *)cardView didRemovedOnDirection:(TTStackCardsDicretion)direction;
+
 @end
 
 @interface TTStackCards : NSObject
@@ -27,7 +35,7 @@ typedef NS_ENUM(NSUInteger, TTStackCardsDicretion) {
 
 + (void)setBottomCardFrame:(CGRect)frame;
 
-+ (instancetype)cardsWithPresenedInView:(UIView *)superView ttStackCardsDelegate:(id)delegate;
++ (instancetype)cardsWithPresenedView:(UIView *)superView ttStackCardsDelegate:(id)delegate;
 
 - (void)animationRemoveOnDirecion:(TTStackCardsDicretion)direciton;
 

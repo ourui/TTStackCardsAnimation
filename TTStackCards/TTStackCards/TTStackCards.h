@@ -35,7 +35,7 @@ typedef NS_ENUM(NSUInteger, TTStackCardsDicretion) {
 
 + (void)setBottomCardFrame:(CGRect)frame;
 
-+ (instancetype)cardsWithPresenedInView:(UIView *)superView ttStackCardsDelegate:(id)delegate;
++ (instancetype)cardsWithPresenedView:(UIView *)superView ttStackCardsDelegate:(id)delegate;
 
 - (void)animationRemoveOnDirecion:(TTStackCardsDicretion)direciton;
 

@@ -39,10 +39,6 @@
 
 @property(nonatomic,weak)UIView *superView;
 @property(nonatomic,strong)NSMutableArray *cards;
-@property(nonatomic)TTStackCardsDicretion curDirection;
-@property(nonatomic,strong)NSMutableArray *cardsToRemove;
-
-
 
 @end
 
@@ -51,6 +47,7 @@ static CGPoint originPoints[4];
 static CGRect originFrames[4];
 static CGFloat recusiveSpace = 22;
 static CGFloat recusiveScale = 1.05;
+extern CGFloat const TTDisappearDistance;
 
 @implementation TTStackCards
 
@@ -58,7 +55,7 @@ static CGFloat recusiveScale = 1.05;
     bottomCardFrame = frame;
 }
 
-+ (instancetype)cardsWithPresenedInView:(UIView *)superView ttStackCardsDelegate:(id)delegate{
++ (instancetype)cardsWithPresenedView:(UIView *)superView ttStackCardsDelegate:(id)delegate{
     
     if (CGRectEqualToRect(bottomCardFrame, CGRectZero)) {
         
@@ -81,20 +78,25 @@ static CGFloat recusiveScale = 1.05;
     if ((self = [super init])) {
         
         self.cards = [NSMutableArray array];
-        self.cardsToRemove = [NSMutableArray array];
         self.superView = superView;
         self.delegate = dele;
-        
-        NSAssert(1,@"delt");
-        
+     
         for (int i=0; i<4; i++) {
             TTStackSingleCardView *newCard = [self.delegate ttStackCardView];
-            newCard.top = 135;
+            
+            if (!newCard) {
+                continue;
+            }
+            else {
+                NSAssert([newCard isKindOfClass:TTStackSingleCardView.class], @"必须要为 TTStackSingleCardView 子类");
+            }
+            
+            newCard.top = bottomCardFrame.origin.y;
             
             if (i>1) {
                 newCard.width =  newCard.width *  pow(recusiveScale, i-1);
                 newCard.height =  newCard.height *  pow(recusiveScale, i-1);
-                newCard.top = 135 - (i-1) * recusiveSpace;
+                newCard.top = bottomCardFrame.origin.y - (i-1) * recusiveSpace;
             }
             
             newCard.centerX = superView.width/2;
@@ -117,129 +119,98 @@ static CGFloat recusiveScale = 1.05;
 }
 
 - (void)cardMoveFromPositon:(CGPoint)from toPosition:(CGPoint)to {
-//    [self scaleUpCardsWithDuration:1.0];
-}
-
-- (void)triggerRemoveAction {
     
 }
 
-- (void)moveOffOnDirection:(TTStackCardsDicretion)direction {
-   
-    UIView * card = [self.cards firstObject];
+- (void)triggerRemoveActionWithTouchTime:(NSTimeInterval)touchTime{
     
-    CGPoint dsc;
+    if (touchTime > 0.25) {
+        touchTime = 0.25;
+    }
+    
+    TTStackSingleCardView *card = [self.cards objectAtIndex:0];
+    
+    TTStackCardsDicretion direction = card.center.x > card.originPosition.x ?
+                                      TTStackCardsDicretionRight:TTStackCardsDicretionLeft;
+    
+    CGPoint disappearPosition;
     
     if (direction == TTStackCardsDicretionLeft) {
-        dsc = CGPointMake(card.centerX + self.superView.width/2, card.centerY);
+        disappearPosition = CGPointMake(-card.width/2, card.centerY);
+    }
+    else {
+        disappearPosition = CGPointMake(self.superView.width+card.width/2, card.centerY);
     }
     
-    if (direction == TTStackCardsDicretionRight) {
-        dsc = CGPointMake(card.centerX - self.superView.width/2, card.centerY);
-    }
-    
-    UIView *cardToRm = [self removeTopCard];
-    [self.cardsToRemove removeObject:cardToRm];
-    
-    [UIView animateWithDuration:0.25 animations:^{
-        card.center = dsc;
-    } completion:^(BOOL finished) {
+    [UIView animateWithDuration:touchTime animations:^{
+        card.center = disappearPosition;
         
+    } completion:^(BOOL finished) {
+        [self removeTopCard];
         [card removeFromSuperview];
+        [self scaleUpCardsWithAnimationDuration:0.05];
     }];
-    
-    [self scaleUpCardsWithDuration:0.30];
-}
-
-- (void)scaleDownCardsWithAnimation {
-    for (int i=1; i<=2; i++) {
-        [UIView animateWithDuration:0.15 animations:^{
-            UIView *card = self.cards[i];
-            card.frame = originFrames[i];
-        }];
-    }
-}
-
-- (void)scaleUpCardsWithDuration:(float)duration {
-    for (int i=0; i<=1; i++) {
-        [UIView animateWithDuration:duration animations:^{
-            UIView *card = self.cards[i];
-            card.frame = originFrames[i];
-        }];
-    }
 }
 
 - (id)removeTopCard {
     id first = [self.cards dequeue];
+    
     UIView *bottom = [self.cards lastObject];
-    UIView *newCard = (UIView *)[self.delegate ttStackCardView];
+    TTStackSingleCardView *newCard = [self.delegate ttStackCardView];
   
+    if (newCard) {
+         NSAssert([newCard isKindOfClass:TTStackSingleCardView.class], @"必须要为 TTStackSingleCardView 子类");
+    }
+    
     newCard.center = bottom.center;
     [self.cards enqueue:newCard];
     [self.superView insertSubview:newCard belowSubview:bottom];
+    
+    newCard.originFrame = newCard.frame;
+    newCard.originPosition = newCard.center;
+    newCard.originSize = newCard.bounds.size;
+    newCard.stackCards = self;
    
-    [self.cardsToRemove addObject:first];
+    [self enableTouchOnTopCard];
     
     return first;
 }
 
-- (void)like:(id)sender {
-    self.curDirection = TTStackCardsDicretionRight;
-    UIView *first = [self removeTopCard];
-    
-    CAAnimation *animation = sender ? [self backOutAnimationOnDirection:TTStackCardsDicretionRight]:
-    [self simpleMoveOutAnimationOnDirection:TTStackCardsDicretionRight];
-    
-    [first.layer addAnimation:animation forKey:@"disappear"];
-    
-    [self scaleUpCardsWithDuration:sender? 0.15:0.0];
-}
-
-
-- (void)dislike:(id)sender {
-    self.curDirection = TTStackCardsDicretionLeft;
-    UIView * first = [self removeTopCard];
-    
-    CAAnimation *animation = sender ? [self backOutAnimationOnDirection:TTStackCardsDicretionLeft]:
-    [self simpleMoveOutAnimationOnDirection:TTStackCardsDicretionLeft];
-    
-    [first.layer addAnimation:animation forKey:@"disappear"];
-    
-    [self scaleUpCardsWithDuration:sender? 0.15:0.0];
-}
-
-
-- (CAAnimation *)simpleMoveOutAnimationOnDirection:(NSUInteger)direction {
-    CABasicAnimation *disappear = [CABasicAnimation animationWithKeyPath:@"position"];
-    
-    disappear.fromValue = [NSValue valueWithCGPoint:originPoints[0]];
-    
-    CGPoint dsc;
-    
-    if (direction == TTStackCardsDicretionRight) {
-        dsc = CGPointMake(self.superView.width / 2 * 3, originPoints[0].y + 80);
+- (void)scaleDownCardsWithAnimationDuration:(float)duration {
+    for (int i=1; i<=2; i++) {
+        [UIView animateWithDuration:duration animations:^{
+            TTStackSingleCardView *card = self.cards[i];
+            card.frame = originFrames[i];
+            card.originFrame = card.frame;
+            card.originPosition = card.center;
+            card.originSize = card.bounds.size;
+        }];
     }
-    
-    if (direction == TTStackCardsDicretionLeft) {
-        dsc = CGPointMake(- self.superView.width/2, originPoints[0].y + 80);
-    }
-    
-    disappear.toValue = [NSValue valueWithCGPoint:dsc];
-    disappear.duration = 0.18;
-    disappear.delegate = self;
-    
-    return disappear;
 }
+
+- (void)scaleUpCardsWithAnimationDuration:(float)duration {
+    for (int i=0; i<=1; i++) {
+        [UIView animateWithDuration:duration animations:^{
+            TTStackSingleCardView *card = self.cards[i];
+            card.frame = originFrames[i];
+            card.originFrame = card.frame;
+            card.originPosition = card.center;
+            card.originSize = card.bounds.size;
+        }];
+    }
+}
+
+#pragma mark - Quick Remove
 
 - (CAAnimation *)backOutAnimationOnDirection:(NSUInteger)direction {
     CGPoint pointsR[3] = {
-        CGPointMake(originPoints[0].x - 5, originPoints[0].y),
+        CGPointMake(originPoints[0].x - 3, originPoints[0].y),
         originPoints[0],
         CGPointMake(self.superView.width + 150, originPoints[0].y + 50)
     };
     
     CGPoint pointsL[3] = {
-        CGPointMake(originPoints[0].x + 5, originPoints[0].y),
+        CGPointMake(originPoints[0].x + 3, originPoints[0].y),
         originPoints[0],
         CGPointMake(0 - 150, originPoints[0].y + 50)
     };
@@ -256,34 +227,26 @@ static CGFloat recusiveScale = 1.05;
     
     CABasicAnimation *rotate = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
     rotate.fromValue = @(0);
-    rotate.toValue = @((direction==1? -1.0:1.0)*5.0 / 180 * M_PI);
+    rotate.toValue = @((direction==1? -1.0:1.0)*3.0 / 180 * M_PI);
     
     CAAnimationGroup *group = [CAAnimationGroup animation];
     group.animations = @[animation,rotate];
-    group.delegate = self;
     group.duration = 0.55;
     group.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     
     return group;
 }
 
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-    
-    for (UIView *card in self.cardsToRemove) {
-      
-        [card removeFromSuperview];
-    }
-    
-    [self.cardsToRemove removeAllObjects];
-}
 
 - (void)animationRemoveOnDirecion:(TTStackCardsDicretion)direciton {
-    if (direciton == TTStackCardsDicretionLeft) {
-        [self dislike:@""];
-    }
-    else if(direciton == TTStackCardsDicretionRight){
-        [self like:@""];
-    }
+    
+    TTStackSingleCardView *cardToRemove = [self removeTopCard];
+    
+    CAAnimation *animation = [self backOutAnimationOnDirection:direciton];
+    animation.delegate = cardToRemove;
+    [cardToRemove.layer addAnimation:animation forKey:@"disappear"];
+    
+    [self scaleUpCardsWithAnimationDuration:0.45];
 }
 
 @end

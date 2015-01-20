@@ -13,8 +13,12 @@
 
 - (void)cardMoveFromPositon:(CGPoint)from toPosition:(CGPoint)to;
 
-- (void)triggerRemoveAction;
+- (void)triggerRemoveActionWithTouchTime:(NSTimeInterval)touchTime;
 
-- (void)scaleDownCardsWithAnimation;
+//向下压下动画
+- (void)scaleDownCardsWithAnimationDuration:(float)duration;
+
+//向上弹起动画
+- (void)scaleUpCardsWithAnimationDuration:(float)duration;
 
 @end
