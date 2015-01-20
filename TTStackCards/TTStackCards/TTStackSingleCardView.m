@@ -7,6 +7,8 @@
 //
 
 #import "TTStackSingleCardView.h"
+#import "SKBounceAnimation.h"
+#import "TTStackSingleCardViewProtocal.h"
 
 @interface TTStackSingleCardView ()
 
@@ -15,7 +17,7 @@
 @end
 
 
-CGFloat const TTDisappearDistance = 50;
+CGFloat const TTDisappearDistance = 150;
 
 @implementation TTStackSingleCardView
 
@@ -42,21 +44,56 @@ CGFloat const TTDisappearDistance = 50;
         CGPoint curTouchPoint = [touch locationInView:self.superview];
         CGFloat deltaX = curTouchPoint.x - self.lastTouchPoint.x;
         CGFloat deltaY = curTouchPoint.y - self.lastTouchPoint.y;
+        CGPoint lastPoint = self.center;
         self.center = CGPointMake(self.center.x + deltaX, self.center.y + deltaY);
         self.lastTouchPoint = curTouchPoint;
+        
+        [self.stackCards cardMoveFromPositon:lastPoint toPosition:self.center];
     }
-    
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = [touches anyObject];
-    
-    if (touch.tapCount == 1 && self.shouldHandleTouchEvent) {
+   
+    if (self.shouldHandleTouchEvent) {
        
-        if ([self distanceFromPoint:self.originPosition toPoint:self.center] > TTDisappearDistance) {
-            [self removeFromSuperview];
+        CGFloat distance =  abs(self.originPosition.x - self.center.x);
+        if (distance > TTDisappearDistance) {
+            [self.stackCards triggerRemoveAction];
+        }
+        else {
+            [self bouncesToOriginal];
+            [self.stackCards scaleDownCardsWithAnimation];
         }
     }
+}
+
+
+- (void)bouncesToOriginal {
+    
+    NSTimeInterval totoalTime = 0.35;
+    
+    UIView * card = self;
+    CGFloat moveSpace = [self distanceFromPoint:self.originPosition toPoint:self.center];
+    CGFloat animationTime = moveSpace/TTDisappearDistance * totoalTime;
+    
+    NSString *keyPath = @"position";
+    id finalValue = [NSValue valueWithCGPoint:self.originPosition];
+    
+    SKBounceAnimation *bounceAnimation = [SKBounceAnimation animationWithKeyPath:keyPath];
+    bounceAnimation.numberOfBounces = 4;
+    bounceAnimation.fromValue = [NSValue valueWithCGPoint:card.center];
+    bounceAnimation.toValue = finalValue;
+    bounceAnimation.duration = animationTime;
+    bounceAnimation.shouldOvershoot = YES;
+    
+    
+    [card.layer addAnimation:bounceAnimation forKey:@"someKey"];
+    [card.layer setValue:finalValue forKeyPath:keyPath];
+    
+}
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+    [self removeFromSuperview];
 }
 
 @end

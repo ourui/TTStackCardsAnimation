@@ -15,23 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1A5754F61A63A33A0038CF45"
-               BuildableName = "TanTanAnimation.app"
-               BlueprintName = "TanTanAnimation"
-               ReferencedContainer = "container:TanTanAnimation.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1A57550F1A63A33A0038CF45"
-               BuildableName = "TanTanAnimationTests.xctest"
-               BlueprintName = "TanTanAnimationTests"
-               ReferencedContainer = "container:TanTanAnimation.xcodeproj">
+               BuildableName = "TTAnimationDemo.app"
+               BlueprintName = "TTAnimationDemo"
+               ReferencedContainer = "container:TTAnimationDemo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -42,24 +28,14 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1A57550F1A63A33A0038CF45"
-               BuildableName = "TanTanAnimationTests.xctest"
-               BlueprintName = "TanTanAnimationTests"
-               ReferencedContainer = "container:TanTanAnimation.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1A5754F61A63A33A0038CF45"
-            BuildableName = "TanTanAnimation.app"
-            BlueprintName = "TanTanAnimation"
-            ReferencedContainer = "container:TanTanAnimation.xcodeproj">
+            BuildableName = "TTAnimationDemo.app"
+            BlueprintName = "TTAnimationDemo"
+            ReferencedContainer = "container:TTAnimationDemo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -76,9 +52,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1A5754F61A63A33A0038CF45"
-            BuildableName = "TanTanAnimation.app"
-            BlueprintName = "TanTanAnimation"
-            ReferencedContainer = "container:TanTanAnimation.xcodeproj">
+            BuildableName = "TTAnimationDemo.app"
+            BlueprintName = "TTAnimationDemo"
+            ReferencedContainer = "container:TTAnimationDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -94,9 +70,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1A5754F61A63A33A0038CF45"
-            BuildableName = "TanTanAnimation.app"
-            BlueprintName = "TanTanAnimation"
-            ReferencedContainer = "container:TanTanAnimation.xcodeproj">
+            BuildableName = "TTAnimationDemo.app"
+            BlueprintName = "TTAnimationDemo"
+            ReferencedContainer = "container:TTAnimationDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

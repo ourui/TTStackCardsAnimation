@@ -41,6 +41,9 @@
 @property(nonatomic,strong)NSMutableArray *cards;
 @property(nonatomic)TTStackCardsDicretion curDirection;
 @property(nonatomic,strong)NSMutableArray *cardsToRemove;
+
+
+
 @end
 
 static CGRect bottomCardFrame = {0,0,0,0};
@@ -69,23 +72,6 @@ static CGFloat recusiveScale = 1.05;
     return [[self alloc] initWithSuperView:superView delegate:delegate];
 }
 
-
-- (void)attachGesturesToView:(UIView *)view {
-//    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(pan:)];
-//    [view addGestureRecognizer:pan];
-//    
-//    UISwipeGestureRecognizer *swl = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swip:)];
-//    swl.direction = UISwipeGestureRecognizerDirectionLeft;
-//    [view addGestureRecognizer:swl];
-//    [pan requireGestureRecognizerToFail:swl];
-//    
-//    UISwipeGestureRecognizer *swr = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swip:)];
-//    swr.direction = UISwipeGestureRecognizerDirectionRight;
-//    [view addGestureRecognizer:swr];
-//    [pan requireGestureRecognizerToFail:swr];
-}
-
-
 - (void)enableTouchOnTopCard {
     TTStackSingleCardView *card = [self.cards objectAtIndex:0];
     card.shouldHandleTouchEvent = YES;
@@ -104,7 +90,6 @@ static CGFloat recusiveScale = 1.05;
         for (int i=0; i<4; i++) {
             TTStackSingleCardView *newCard = [self.delegate ttStackCardView];
             newCard.top = 135;
-            [self attachGesturesToView:newCard];
             
             if (i>1) {
                 newCard.width =  newCard.width *  pow(recusiveScale, i-1);
@@ -118,6 +103,7 @@ static CGFloat recusiveScale = 1.05;
             newCard.originFrame = newCard.frame;
             newCard.originPosition = newCard.center;
             newCard.originSize = newCard.bounds.size;
+            newCard.stackCards = self;
             
             originPoints[3-i] = newCard.center;
             originFrames[3-i] = newCard.frame;
@@ -130,66 +116,12 @@ static CGFloat recusiveScale = 1.05;
     return self;
 }
 
-static CGPoint lastTouchPoint = {0,0};
-
-- (void)pan:(UIPanGestureRecognizer *)pg {
-    
-    UIView *card = (id)[pg view];
-    if ([self.cards firstObject] != card) {
-        return;
-    }
-    
-    if (pg.state == UIGestureRecognizerStateBegan) {
-        if (CGPointEqualToPoint(lastTouchPoint, CGPointZero)) {
-            lastTouchPoint = originPoints[0];
-        }
-    }
-    
-    if (pg.state == UIGestureRecognizerStateChanged) {
-        
-        CGPoint translation = [pg translationInView:card.superview];
-        card.center = CGPointMake(card.center.x + translation.x,
-                                  card.center.y + translation.y);
-        
-        [pg setTranslation:CGPointZero inView:card.superview];
-        
-        //rotate
-        CGFloat distance = [self distanceFromPoint:originPoints[0] toPoint:card.center];
-        CGFloat totalSpace = [self distanceFromPoint:CGPointZero toPoint:self.superView.center];
-        CGFloat totalAngle = 5.0 / 180.0 * M_PI * (card.center.x < self.superView.centerX ? 1.0:-1.0);
-        
-        card.transform = CGAffineTransformIdentity;
-        card.transform = CGAffineTransformMakeRotation(distance/totalSpace * totalAngle);
-    }
-    
-    if (pg.state == UIGestureRecognizerStateEnded || pg.state == UIGestureRecognizerStateCancelled) {
-        CGFloat disappearSpace = 150;
-        if (card.center.x > self.superView.width/2 + disappearSpace) {
-            [self moveOffOnDirection:TTStackCardsDicretionLeft];
-        }
-        
-        else if(card.center.x < self.superView.width/2 - disappearSpace) {
-            [self moveOffOnDirection:TTStackCardsDicretionRight];
-        }
-        else {
-            [self bouncesToOriginal];
-            [self scaleDownCards];
-        }
-        
-        lastTouchPoint = CGPointZero;
-        card.transform = CGAffineTransformIdentity;
-    }
-    
+- (void)cardMoveFromPositon:(CGPoint)from toPosition:(CGPoint)to {
+//    [self scaleUpCardsWithDuration:1.0];
 }
 
-
-- (void)swip:(UISwipeGestureRecognizer *)sw {
-    if (sw.direction == UISwipeGestureRecognizerDirectionLeft) {
-        [self dislike:nil];
-    }
-    else if(sw.direction == UISwipeGestureRecognizerDirectionRight) {
-        [self like:nil];
-    }
+- (void)triggerRemoveAction {
+    
 }
 
 - (void)moveOffOnDirection:(TTStackCardsDicretion)direction {
@@ -212,50 +144,16 @@ static CGPoint lastTouchPoint = {0,0};
     [UIView animateWithDuration:0.25 animations:^{
         card.center = dsc;
     } completion:^(BOOL finished) {
-        if ([self.delegate respondsToSelector:@selector(ttStackCard:didRemoveOnDirection:)]) {
-            [self.delegate ttStackCard:cardToRm didRemoveOnDirection:direction];
-        }
+        
         [card removeFromSuperview];
     }];
     
     [self scaleUpCardsWithDuration:0.30];
 }
 
-
-- (CGFloat)distanceFromPoint:(CGPoint)begin toPoint:(CGPoint)end{
-    return  sqrt(pow( begin.x - end.x,2) + pow(begin.y - end.y,2));
-}
-
-- (void)bouncesToOriginal {
-    
-    CGFloat totalSpace = [self distanceFromPoint:CGPointZero toPoint:self.superView.center];
-    NSTimeInterval totoalTime = 1.5;
-    
-    UIView * card = [self.cards firstObject];
-    CGFloat moveSpace = [self distanceFromPoint:originPoints[0] toPoint:card.center];
-    CGFloat animationTime = moveSpace/totalSpace * totoalTime;
-    
-    NSString *keyPath = @"position";
-    id finalValue = [NSValue valueWithCGPoint:originPoints[0]];
-    
-    SKBounceAnimation *bounceAnimation = [SKBounceAnimation animationWithKeyPath:keyPath];
-    bounceAnimation.numberOfBounces = 4;
-    bounceAnimation.fromValue = [NSValue valueWithCGPoint:card.center];
-    bounceAnimation.toValue = finalValue;
-    bounceAnimation.duration = animationTime;
-    bounceAnimation.shouldOvershoot = YES;
-    
-    
-    [card.layer addAnimation:bounceAnimation forKey:@"someKey"];
-    [card.layer setValue:finalValue forKeyPath:keyPath];
-    
-}
-
-- (void)scaleDownCards {
-    
+- (void)scaleDownCardsWithAnimation {
     for (int i=1; i<=2; i++) {
-        
-        [UIView animateWithDuration:0.35 animations:^{
+        [UIView animateWithDuration:0.15 animations:^{
             UIView *card = self.cards[i];
             card.frame = originFrames[i];
         }];
@@ -275,7 +173,7 @@ static CGPoint lastTouchPoint = {0,0};
     id first = [self.cards dequeue];
     UIView *bottom = [self.cards lastObject];
     UIView *newCard = (UIView *)[self.delegate ttStackCardView];
-    [self attachGesturesToView:newCard];
+  
     newCard.center = bottom.center;
     [self.cards enqueue:newCard];
     [self.superView insertSubview:newCard belowSubview:bottom];
@@ -372,10 +270,7 @@ static CGPoint lastTouchPoint = {0,0};
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
     
     for (UIView *card in self.cardsToRemove) {
-        if ([self.delegate respondsToSelector:@selector(ttStackCard:didRemoveOnDirection:)]) {
-            [self.delegate ttStackCard:card didRemoveOnDirection:self.curDirection];
-        }
-        
+      
         [card removeFromSuperview];
     }
     
