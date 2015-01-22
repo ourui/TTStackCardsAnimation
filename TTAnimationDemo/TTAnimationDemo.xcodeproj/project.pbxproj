@@ -98,12 +98,12 @@
 			children = (
 				1A5755D81A6792FA0038CF45 /* AppDelegate.h */,
 				1A5755D91A6792FA0038CF45 /* AppDelegate.m */,
+				1A6008E91A6DF6D200FAE73F /* TTStackCards.h */,
+				1A6008CD1A6CC7A600FAE73F /* TTStackSingleCardView.h */,
 				1A5755E11A6792FA0038CF45 /* TTSChosenCard.h */,
 				1A5755E21A6792FA0038CF45 /* TTSChosenCard.m */,
 				1A5755E31A6792FA0038CF45 /* TTSChosenViewController.h */,
 				1A5755E41A6792FA0038CF45 /* TTSChosenViewController.m */,
-				1A6008E91A6DF6D200FAE73F /* TTStackCards.h */,
-				1A6008CD1A6CC7A600FAE73F /* TTStackSingleCardView.h */,
 				1A5754FA1A63A33A0038CF45 /* Supporting Files */,
 			);
 			name = TTAnimationDemo;
