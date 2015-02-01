@@ -132,6 +132,9 @@ extern CGFloat const TTDisappearDistance;
     }
     
     for (int i=1; i<=2; i++) {
+        if (i > self.cards.count - 1) {
+            break;
+        }
         TTStackSingleCardView *card = self.cards[i];
         CGRect frame = originFrames[i];
         CGFloat scale = (1.0 + (recusiveScale - 1) * progress);
@@ -214,6 +217,10 @@ extern CGFloat const TTDisappearDistance;
 
 - (void)scaleDownCardsWithAnimationDuration:(float)duration {
     for (int i=1; i<=2; i++) {
+        if (i > self.cards.count - 1) {
+            break;
+        }
+        
         [UIView animateWithDuration:duration animations:^{
             TTStackSingleCardView *card = self.cards[i];
             card.frame = originFrames[i];
@@ -225,7 +232,12 @@ extern CGFloat const TTDisappearDistance;
 }
 
 - (void)scaleUpCardsWithAnimationDuration:(float)duration {
+    
     for (int i=0; i<=1; i++) {
+        if (i > self.cards.count - 1) {
+            break;
+        }
+        
         [UIView animateWithDuration:duration animations:^{
             TTStackSingleCardView *card = self.cards[i];
             card.frame = originFrames[i];
