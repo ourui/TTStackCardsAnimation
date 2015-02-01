@@ -6,9 +6,9 @@
 //  Copyright (c) 2015年 wangrui. All rights reserved.
 //
 
-#import "TTSChosenCard.h"
+#import "ChosenCard.h"
 
-@implementation TTSChosenCard
+@implementation ChosenCard
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -33,7 +33,7 @@
 
 
 + (instancetype)newCard {
-    return [[TTSChosenCard alloc]initWithFrame:CGRectMake(0, 0, 240, 310)];
+    return [[ChosenCard alloc]initWithFrame:CGRectMake(0, 0, 240, 310)];
 }
 
 

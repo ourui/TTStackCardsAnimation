@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		1A5755D21A6791B00038CF45 /* libTTStackCards.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A5755D11A67917C0038CF45 /* libTTStackCards.a */; };
 		1A5755E61A6792FA0038CF45 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5755D91A6792FA0038CF45 /* AppDelegate.m */; };
-		1A5755ED1A6792FA0038CF45 /* TTSChosenCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5755E21A6792FA0038CF45 /* TTSChosenCard.m */; };
-		1A5755EE1A6792FA0038CF45 /* TTSChosenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5755E41A6792FA0038CF45 /* TTSChosenViewController.m */; };
 		1A5755F11A67936A0038CF45 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A5755EF1A67936A0038CF45 /* Info.plist */; };
 		1A5755F21A67936A0038CF45 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5755F01A67936A0038CF45 /* main.m */; };
 		1A5755F41A6793EF0038CF45 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A5755F31A6793EF0038CF45 /* Images.xcassets */; };
 		1A5755F71A6794050038CF45 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A5755F51A6794050038CF45 /* Main.storyboard */; };
+		1ABB0C4F1A7E3698000A9737 /* ChosenCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABB0C4C1A7E3698000A9737 /* ChosenCard.m */; };
+		1ABB0C501A7E3698000A9737 /* ChosenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ABB0C4E1A7E3698000A9737 /* ChosenViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,16 +32,16 @@
 		1A5755CC1A67917C0038CF45 /* TTStackCards.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TTStackCards.xcodeproj; path = ../TTStackCards/TTStackCards.xcodeproj; sourceTree = "<group>"; };
 		1A5755D81A6792FA0038CF45 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1A5755D91A6792FA0038CF45 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		1A5755E11A6792FA0038CF45 /* TTSChosenCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSChosenCard.h; sourceTree = "<group>"; };
-		1A5755E21A6792FA0038CF45 /* TTSChosenCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSChosenCard.m; sourceTree = "<group>"; };
-		1A5755E31A6792FA0038CF45 /* TTSChosenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSChosenViewController.h; sourceTree = "<group>"; };
-		1A5755E41A6792FA0038CF45 /* TTSChosenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSChosenViewController.m; sourceTree = "<group>"; };
 		1A5755EF1A67936A0038CF45 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TTAnimation/Info.plist; sourceTree = SOURCE_ROOT; };
 		1A5755F01A67936A0038CF45 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = TTAnimation/main.m; sourceTree = SOURCE_ROOT; };
 		1A5755F31A6793EF0038CF45 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = TTAnimation/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		1A5755F61A6794050038CF45 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = TTAnimation/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		1A6008CD1A6CC7A600FAE73F /* TTStackSingleCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TTStackSingleCardView.h; path = ../../TTStackCards/TTStackCards/TTStackSingleCardView.h; sourceTree = "<group>"; };
 		1A6008E91A6DF6D200FAE73F /* TTStackCards.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTStackCards.h; sourceTree = "<group>"; };
+		1ABB0C4B1A7E3698000A9737 /* ChosenCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChosenCard.h; sourceTree = "<group>"; };
+		1ABB0C4C1A7E3698000A9737 /* ChosenCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChosenCard.m; sourceTree = "<group>"; };
+		1ABB0C4D1A7E3698000A9737 /* ChosenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChosenViewController.h; sourceTree = "<group>"; };
+		1ABB0C4E1A7E3698000A9737 /* ChosenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChosenViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,10 +100,10 @@
 				1A5755D91A6792FA0038CF45 /* AppDelegate.m */,
 				1A6008E91A6DF6D200FAE73F /* TTStackCards.h */,
 				1A6008CD1A6CC7A600FAE73F /* TTStackSingleCardView.h */,
-				1A5755E11A6792FA0038CF45 /* TTSChosenCard.h */,
-				1A5755E21A6792FA0038CF45 /* TTSChosenCard.m */,
-				1A5755E31A6792FA0038CF45 /* TTSChosenViewController.h */,
-				1A5755E41A6792FA0038CF45 /* TTSChosenViewController.m */,
+				1ABB0C4B1A7E3698000A9737 /* ChosenCard.h */,
+				1ABB0C4C1A7E3698000A9737 /* ChosenCard.m */,
+				1ABB0C4D1A7E3698000A9737 /* ChosenViewController.h */,
+				1ABB0C4E1A7E3698000A9737 /* ChosenViewController.m */,
 				1A5754FA1A63A33A0038CF45 /* Supporting Files */,
 			);
 			name = TTAnimationDemo;
@@ -196,10 +196,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A5755EE1A6792FA0038CF45 /* TTSChosenViewController.m in Sources */,
+				1ABB0C501A7E3698000A9737 /* ChosenViewController.m in Sources */,
+				1ABB0C4F1A7E3698000A9737 /* ChosenCard.m in Sources */,
 				1A5755E61A6792FA0038CF45 /* AppDelegate.m in Sources */,
 				1A5755F21A67936A0038CF45 /* main.m in Sources */,
-				1A5755ED1A6792FA0038CF45 /* TTSChosenCard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

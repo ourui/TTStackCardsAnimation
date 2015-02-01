@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TTSChosenViewController : UIViewController
+@interface ChosenViewController : UIViewController
 
 @end

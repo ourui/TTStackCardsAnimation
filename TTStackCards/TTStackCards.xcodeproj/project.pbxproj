@@ -11,7 +11,6 @@
 		1A5755C41A678FDF0038CF45 /* UIView+GeometryAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5755C01A678FDF0038CF45 /* UIView+GeometryAddition.m */; };
 		1A5755C51A678FDF0038CF45 /* TTStackCards.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5755C21A678FDF0038CF45 /* TTStackCards.m */; };
 		1A6008CC1A6CC75B00FAE73F /* TTStackSingleCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A6008CB1A6CC75B00FAE73F /* TTStackSingleCardView.m */; };
-		B3A628E61A6D6BE0000625C7 /* TTStackCardsProtocal.h in Sources */ = {isa = PBXBuildFile; fileRef = B3A628E51A6D6B08000625C7 /* TTStackCardsProtocal.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -139,7 +138,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3A628E61A6D6BE0000625C7 /* TTStackCardsProtocal.h in Sources */,
 				1A5755C41A678FDF0038CF45 /* UIView+GeometryAddition.m in Sources */,
 				1A5755C51A678FDF0038CF45 /* TTStackCards.m in Sources */,
 				1A5755C31A678FDF0038CF45 /* SKBounceAnimation.m in Sources */,
@@ -229,6 +227,7 @@
 			buildSettings = {
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "77241d36-de5c-4f96-bd12-a67926a0bb3e";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -238,6 +237,7 @@
 			buildSettings = {
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "77241d36-de5c-4f96-bd12-a67926a0bb3e";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;

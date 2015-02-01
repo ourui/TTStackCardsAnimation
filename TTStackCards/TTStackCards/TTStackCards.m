@@ -70,6 +70,11 @@ extern CGFloat const TTDisappearDistance;
 }
 
 - (void)enableTouchOnTopCard {
+    
+    if (self.cards.count == 0) {
+        return;
+    }
+    
     TTStackSingleCardView *card = [self.cards objectAtIndex:0];
     card.shouldHandleTouchEvent = YES;
 }
@@ -132,9 +137,11 @@ extern CGFloat const TTDisappearDistance;
     }
     
     for (int i=1; i<=2; i++) {
-        if (i > self.cards.count - 1) {
-            break;
+ 
+        if (i+1>self.cards.count) {
+            continue;
         }
+        
         TTStackSingleCardView *card = self.cards[i];
         CGRect frame = originFrames[i];
         CGFloat scale = (1.0 + (recusiveScale - 1) * progress);
@@ -192,6 +199,11 @@ extern CGFloat const TTDisappearDistance;
 }
 
 - (id)removeTopCard {
+    
+    if (self.cards.count == 0) {
+        return nil;
+    }
+    
     id first = [self.cards dequeue];
     
     UIView *bottom = [self.cards lastObject];
@@ -199,6 +211,11 @@ extern CGFloat const TTDisappearDistance;
   
     if (newCard) {
          NSAssert([newCard isKindOfClass:TTStackSingleCardView.class], @"必须要为 TTStackSingleCardView 子类");
+    }
+    
+    if(!newCard) {
+        [self enableTouchOnTopCard];
+        return first;
     }
     
     newCard.center = bottom.center;
@@ -217,11 +234,13 @@ extern CGFloat const TTDisappearDistance;
 
 - (void)scaleDownCardsWithAnimationDuration:(float)duration {
     for (int i=1; i<=2; i++) {
-        if (i > self.cards.count - 1) {
-            break;
+        
+        if (i + 1 > self.cards.count) {
+            continue;
         }
         
         [UIView animateWithDuration:duration animations:^{
+
             TTStackSingleCardView *card = self.cards[i];
             card.frame = originFrames[i];
             card.originFrame = card.frame;
@@ -234,11 +253,14 @@ extern CGFloat const TTDisappearDistance;
 - (void)scaleUpCardsWithAnimationDuration:(float)duration {
     
     for (int i=0; i<=1; i++) {
-        if (i > self.cards.count - 1) {
-            break;
+        
+        if (i + 1 > self.cards.count) {
+            continue;
         }
         
+        
         [UIView animateWithDuration:duration animations:^{
+            
             TTStackSingleCardView *card = self.cards[i];
             card.frame = originFrames[i];
             card.originFrame = card.frame;
@@ -289,6 +311,10 @@ extern CGFloat const TTDisappearDistance;
 - (void)animationRemoveOnDirecion:(TTStackCardsDicretion)direciton {
     
     TTStackSingleCardView *cardToRemove = [self removeTopCard];
+    
+    if (!cardToRemove) {
+        return;
+    }
     
     CAAnimation *animation = [self backOutAnimationOnDirection:direciton];
     animation.delegate = cardToRemove;

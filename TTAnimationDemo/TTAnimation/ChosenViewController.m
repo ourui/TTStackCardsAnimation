@@ -6,19 +6,19 @@
 //  Copyright (c) 2015年 wangrui. All rights reserved.
 //
 
-#import "TTSChosenViewController.h"
-#import "TTSChosenCard.h"
+#import "ChosenViewController.h"
+#import "ChosenCard.h"
 #import "TTStackCards.h"
 
 
-@interface TTSChosenViewController ()<TTStackCardsDelegate>
+@interface ChosenViewController ()<TTStackCardsDelegate>
 
 @property(nonatomic,strong)TTStackCards *stackCards;
 @end
 
 
 
-@implementation TTSChosenViewController
+@implementation ChosenViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,7 +32,15 @@
 }
 
 - (UIView *)ttStackCardView {
-    return [TTSChosenCard newCard];
+    
+    static int i;
+    
+    if (i < 6) {
+        i++;
+        return [ChosenCard newCard];
+    }
+    
+    return nil;
 }
 
 - (IBAction)like:(id)sender {
@@ -42,6 +50,14 @@
 
 - (IBAction)dislike:(id)sender {
     [self.stackCards animationRemoveOnDirecion:TTStackCardsDicretionLeft];
+}
+
+- (void)ttStackCardView:(TTStackSingleCardView *)cardView movingOnDirection:(TTStackCardsDicretion)direction movingFactor:(CGFloat)factor {
+    NSLog(@"moving:%f",factor);
+}
+
+- (void)ttStackCardView:(TTStackSingleCardView *)cardView didRemovedOnDirection:(TTStackCardsDicretion)direction {
+    NSLog(@"over");
 }
 
 - (void)didReceiveMemoryWarning {
