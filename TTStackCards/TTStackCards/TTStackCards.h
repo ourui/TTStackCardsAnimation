@@ -18,15 +18,31 @@ typedef NS_ENUM(NSUInteger, TTStackCardsDicretion) {
 
 @protocol TTStackCardsDelegate <NSObject>
 
+- (NSInteger)numberOfCardsEstimated;
+
 - (TTStackSingleCardView *)ttStackCardView;
 
 @optional
 
-//视图拖动时 factor:(0.0-1.0) 1.0 表示移动到最大程度,释放即将移除
-- (void)ttStackCardView:(TTStackSingleCardView *)cardView movingOnDirection:(TTStackCardsDicretion)direction movingFactor:(CGFloat)factor;
+/**
+ *  @brief  拖动Card时的回调
+ *
+ *  @param cardView
+ *  @param direction
+ *  @param factor    0.0-1.0
+ */
+- (void)ttStackCardView:(TTStackSingleCardView *)cardView
+      movingOnDirection:(TTStackCardsDicretion)direction
+           movingFactor:(CGFloat)factor;
 
-//视图已移除
-- (void)ttStackCardView:(TTStackSingleCardView *)cardView didRemovedOnDirection:(TTStackCardsDicretion)direction;
+/**
+ *  @brief  Card移除时的回调
+ *
+ *  @param cardView
+ *  @param direction
+ */
+- (void)ttStackCardView:(TTStackSingleCardView *)cardView
+  didRemovedOnDirection:(TTStackCardsDicretion)direction;
 
 @end
 

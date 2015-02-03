@@ -86,7 +86,19 @@ extern CGFloat const TTDisappearDistance;
         self.superView = superView;
         self.delegate = dele;
      
-        for (int i=0; i<4; i++) {
+        NSInteger numOfCards = [self.delegate numberOfCardsEstimated];
+        NSAssert(numOfCards >= 0, @"卡片数量不能为负数");
+        
+        if (numOfCards==0) {
+            return nil;
+        }
+        
+        if (numOfCards >= 4) {
+            numOfCards = 4;
+        }
+        
+
+        for (int i=0; i<numOfCards; i++) {
             TTStackSingleCardView *newCard = [self.delegate ttStackCardView];
             
             if (!newCard) {
@@ -98,10 +110,15 @@ extern CGFloat const TTDisappearDistance;
             
             newCard.top = bottomCardFrame.origin.y;
             
-            if (i>1) {
-                newCard.width =  newCard.width *  pow(recusiveScale, i-1);
-                newCard.height =  newCard.height *  pow(recusiveScale, i-1);
-                newCard.top = bottomCardFrame.origin.y - (i-1) * recusiveSpace;
+            if (i==numOfCards-1) {
+                newCard.width =  newCard.width *  pow(recusiveScale, 2);
+                newCard.height =  newCard.height *  pow(recusiveScale, 2);
+                newCard.top = bottomCardFrame.origin.y - 2 * recusiveSpace;
+            }
+            if (i==numOfCards-2) {
+                newCard.width =  newCard.width *  pow(recusiveScale,1);
+                newCard.height =  newCard.height *  pow(recusiveScale, 1);
+                newCard.top = bottomCardFrame.origin.y - recusiveSpace;
             }
             
             newCard.centerX = superView.width/2;
@@ -112,8 +129,8 @@ extern CGFloat const TTDisappearDistance;
             newCard.originSize = newCard.bounds.size;
             newCard.stackCards = self;
             
-            originPoints[3-i] = newCard.center;
-            originFrames[3-i] = newCard.frame;
+            originPoints[numOfCards-1-i] = newCard.center;
+            originFrames[numOfCards-1-i] = newCard.frame;
             
             [superView addSubview:newCard];
         }
