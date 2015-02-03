@@ -27,7 +27,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1A49CC771A80A9F0000F3E57 /* For_Cocoapod_lib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = For_Cocoapod_lib.m; sourceTree = "<group>"; };
 		1A5755A31A678FA00038CF45 /* libTTStackCards.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTTStackCards.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A5755BD1A678FDF0038CF45 /* SKBounceAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKBounceAnimation.h; sourceTree = "<group>"; };
 		1A5755BE1A678FDF0038CF45 /* SKBounceAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKBounceAnimation.m; sourceTree = "<group>"; };
@@ -79,7 +78,6 @@
 				1A6008CB1A6CC75B00FAE73F /* TTStackSingleCardView.m */,
 				1A5755C11A678FDF0038CF45 /* TTStackCards.h */,
 				1A5755C21A678FDF0038CF45 /* TTStackCards.m */,
-				1A49CC771A80A9F0000F3E57 /* For_Cocoapod_lib.m */,
 			);
 			path = TTStackCards;
 			sourceTree = "<group>";
