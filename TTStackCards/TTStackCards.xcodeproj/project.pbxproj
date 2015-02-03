@@ -36,7 +36,7 @@
 		1A5755C21A678FDF0038CF45 /* TTStackCards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTStackCards.m; sourceTree = "<group>"; };
 		1A6008CA1A6CC75B00FAE73F /* TTStackSingleCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTStackSingleCardView.h; sourceTree = "<group>"; };
 		1A6008CB1A6CC75B00FAE73F /* TTStackSingleCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTStackSingleCardView.m; sourceTree = "<group>"; };
-		B3A628E51A6D6B08000625C7 /* TTStackCardsProtocal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTStackCardsProtocal.h; sourceTree = "<group>"; };
+		B3A628E51A6D6B08000625C7 /* TTStackCardsPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTStackCardsPrivate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,7 +73,7 @@
 				1A5755BE1A678FDF0038CF45 /* SKBounceAnimation.m */,
 				1A5755BF1A678FDF0038CF45 /* UIView+GeometryAddition.h */,
 				1A5755C01A678FDF0038CF45 /* UIView+GeometryAddition.m */,
-				B3A628E51A6D6B08000625C7 /* TTStackCardsProtocal.h */,
+				B3A628E51A6D6B08000625C7 /* TTStackCardsPrivate.h */,
 				1A6008CA1A6CC75B00FAE73F /* TTStackSingleCardView.h */,
 				1A6008CB1A6CC75B00FAE73F /* TTStackSingleCardView.m */,
 				1A5755C11A678FDF0038CF45 /* TTStackCards.h */,

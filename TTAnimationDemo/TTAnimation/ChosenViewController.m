@@ -31,7 +31,7 @@
 
 }
 
-- (UIView *)ttStackCardView {
+- (TTStackSingleCardView *)ttStackCardView {
     
     static int i;
     
@@ -41,6 +41,10 @@
     }
     
     return nil;
+}
+
+- (NSInteger)numberOfCardsEstimated {
+    return 5;
 }
 
 - (IBAction)like:(id)sender {

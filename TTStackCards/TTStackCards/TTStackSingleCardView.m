@@ -8,7 +8,7 @@
 
 #import "TTStackSingleCardView.h"
 #import "SKBounceAnimation.h"
-#import "TTStackCardsProtocal.h"
+#import "TTStackCardsPrivate.h"
 
 @interface TTStackSingleCardView ()
 
