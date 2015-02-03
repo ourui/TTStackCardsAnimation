@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A49CC781A80A9F0000F3E57 /* For_Cocoapod_lib.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A49CC771A80A9F0000F3E57 /* For_Cocoapod_lib.m */; };
 		1A5755C31A678FDF0038CF45 /* SKBounceAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5755BE1A678FDF0038CF45 /* SKBounceAnimation.m */; };
 		1A5755C41A678FDF0038CF45 /* UIView+GeometryAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5755C01A678FDF0038CF45 /* UIView+GeometryAddition.m */; };
 		1A5755C51A678FDF0038CF45 /* TTStackCards.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5755C21A678FDF0038CF45 /* TTStackCards.m */; };
@@ -141,7 +140,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A49CC781A80A9F0000F3E57 /* For_Cocoapod_lib.m in Sources */,
 				1A5755C41A678FDF0038CF45 /* UIView+GeometryAddition.m in Sources */,
 				1A5755C51A678FDF0038CF45 /* TTStackCards.m in Sources */,
 				1A5755C31A678FDF0038CF45 /* SKBounceAnimation.m in Sources */,

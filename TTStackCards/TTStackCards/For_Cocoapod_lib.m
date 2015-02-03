@@ -7,7 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TTStackCards.h"
+#import "TTStackSingleCardView.h"
 
-@implementation For_Cocoapod_lib : NSObject 
+@interface For_Cocoapod_lib : NSObject
+
+@end
+
+@implementation For_Cocoapod_lib
+
++ (void)load {
+    [TTStackSingleCardView description];
+    [TTStackCards description];
+}
 
 @end
