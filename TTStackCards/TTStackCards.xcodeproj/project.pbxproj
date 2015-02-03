@@ -225,6 +225,7 @@
 		1A5755B81A678FA00038CF45 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "77241d36-de5c-4f96-bd12-a67926a0bb3e";
@@ -235,6 +236,7 @@
 		1A5755B91A678FA00038CF45 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "77241d36-de5c-4f96-bd12-a67926a0bb3e";
